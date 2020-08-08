@@ -159,9 +159,9 @@ function RageUI.Item.Slider(Label, Items, StartedAtIndex, Description, Divider, 
                     if Index[Option].Current < 1 then
                         Index[Option].Current = #Items
                     end
-                    if (Actions.onListChange ~= nil) then
+                    if (Actions.onSliderChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(Index[Option].Current);
+                            Actions.onSliderChange(Index[Option].Current);
                         end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -170,9 +170,9 @@ function RageUI.Item.Slider(Label, Items, StartedAtIndex, Description, Divider, 
                     if Index[Option].Current > #Items then
                         Index[Option].Current = 1
                     end
-                    if (Actions.onListChange ~= nil) then
+                    if (Actions.onSliderChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(Index[Option].Current);
+                            Actions.onSliderChange(Index[Option].Current);
                         end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)

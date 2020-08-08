@@ -41,26 +41,66 @@ Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
     RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
 end)
 
+heritageValue = 0.1
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
+            RageUI.Item.Checkbox("This is a checkbox", "Click me!", true, { CheckboxStyle = RageUI.CheckboxStyle.Tick },{
+                onHovered = function()
 
-            for i = 1, 20 do
-                RageUI.Item.Button('Basic Items', nil, {  }, true, {
-                    onHovered = function()
+                end,
+                onChecked = function()
+                    print('You checked the checkbox!')
+                end,
+                onUnChecked = function()
+                    print('You unchecked the checkbox! :(')
+                end,
+                onSelected = function()
 
-                    end,
-                    onSelected = function()
+                end,
+                onActive = function()
+                    RMenu:Get('showcase', 'main'):SetSubtitle("You are on the checkbox!")
+                end
+            })
 
-                    end,
-                    onActive = function()
+            RageUI.Item.List("A list of items", { "Yes", "No", "Maybe ?", "Money" }, 1, nil, {}, true, {
+                onListChange = function(Index, Item)
+                    print(Item)
+                end,
+                onSelected = function(Index, Item)
 
-                    end,
-                })
-            end
+                end,
+                onHovered = function(Index, Item)
 
+                end
+            })
+
+            RageUI.Item.Separator('~~~~ This is a seperator. ~~~~')
+
+            local sliderTable = {0,1,2,3,4,5,6,7,8,9,10}
+
+            RageUI.Item.Slider("Slider", sliderTable, 5, "Slider between 0 and 10", true, {}, true, {
+                onSliderChange = function(Index) 
+                    RMenu:Get('showcase', 'main'):SetSubtitle("Slider Value: " .. sliderTable[Index])
+                end,
+                onSelected = function(Value)
+                end,
+                onHovered = function()
+                end
+            })
+
+            RageUI.Item.UISliderHeritage("Heritage Slider", heritageValue, "Slider between 0 and 10", {
+                onSliderChange = function(x,y) 
+                    RMenu:Get('showcase', 'main'):SetSubtitle("Slider Value: " .. x .. " " .. y)
+                end,
+                onSelected = function(Value)
+                end,
+                onHovered = function()
+                end
+            }, heritageValue)
         end)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
@@ -81,7 +121,7 @@ Citizen.CreateThread(function()
 
             RageUI.Panel.ColourPanel('Title', RageUI.PanelColour.HairCut, 5, {
                 onColourChange = function(Index)
-
+                    print(Index)
                 end,
                 onSelected = function()
 

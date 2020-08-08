@@ -98,9 +98,9 @@ function RageUI.Item.UISliderHeritage(Label, ItemIndex, Description, Actions, Va
                     ItemIndex = ItemIndex - value
                     if ItemIndex < 0.1 then
                         ItemIndex = 0.0
-                        if (Actions.onListChange ~= nil) then
+                        if (Actions.onSliderChange ~= nil) then
                             Citizen.CreateThread(function()
-                                Actions.onListChange(ItemIndex / 10, ItemIndex);
+                                Actions.onSliderChange(ItemIndex / 10, ItemIndex);
                             end)
                         end
                     else
@@ -110,9 +110,9 @@ function RageUI.Item.UISliderHeritage(Label, ItemIndex, Description, Actions, Va
                     ItemIndex = ItemIndex + value
                     if ItemIndex > #Items then
                         ItemIndex = 10
-                        if (Actions.onListChange ~= nil) then
+                        if (Actions.onSliderChange ~= nil) then
                             Citizen.CreateThread(function()
-                                Actions.onListChange(ItemIndex / 10, ItemIndex);
+                                Actions.onSliderChange(ItemIndex / 10, ItemIndex);
                             end)
                         end
                     else

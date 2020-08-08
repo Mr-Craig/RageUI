@@ -102,8 +102,8 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                 ---@type boolean
                 if CurrentMenu.EnableMouse == true and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
-                    if (Hovered) then
-                        Actions['onHovered']();
+                    if (Hovered) and Actions.onHovered ~= nil then
+                        Actions.onHovered();
                     end
                 end
                 if Selected then
@@ -183,12 +183,12 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                         local Audio = RageUI.Settings.Audio
                         RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                         Index[Option].Current = not Index[Option].Current
-                        if (Index[Option].Current) then
+                        if (Index[Option].Current) and Actions.onChecked ~= nill then
                             Citizen.CreateThread(function()
                                 Index[Option].Current = true
                                 Actions.onChecked();
                             end)
-                        else
+                        elseif Actions.onUnChecked ~= nil then
                             Citizen.CreateThread(function()
                                 Index[Option].Current = false
                                 Actions.onUnChecked();
@@ -204,7 +204,7 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
 
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected)
 
-                if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) then
+                if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) and Actions.onSelected ~= nil then
                     Citizen.CreateThread(function()
                         Actions.onSelected(Index[Option].Current);
                     end)
